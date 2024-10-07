@@ -45,6 +45,10 @@ public class UserEntity {
     )
     private List<RoleEntity> roles = new ArrayList<>();
 
+    //------------------------RELATION-------------------------------------------------
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "userEntity")
+    List<LoadEntity> loads = new ArrayList<>();
     //---------------------------GETTERS AND SETTERS-------------------------------------------------
 
     public boolean isAdmin() {

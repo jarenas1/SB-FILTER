@@ -23,9 +23,17 @@ public class LoadEntity {
     @NotNull
     private Long dimensions;
 
+    private Boolean damage = false;
+
+    //relation-----
     @ManyToOne
     @JoinColumn(name = "id_palet")
     private PaletEntity paletEntity;
+
+    //relation-----
+    @ManyToOne
+    @JoinColumn(name = "id_user")
+    private UserEntity userEntity;
 
     //AUDIT
     @Embedded
@@ -71,5 +79,29 @@ public class LoadEntity {
 
     public void setWeight(@NotNull Long weight) {
         this.weight = weight;
+    }
+
+    public Audit getAudit() {
+        return audit;
+    }
+
+    public void setAudit(Audit audit) {
+        this.audit = audit;
+    }
+
+    public Boolean getDamage() {
+        return damage;
+    }
+
+    public void setDamage(Boolean damage) {
+        this.damage = damage;
+    }
+
+    public UserEntity getUserEntity() {
+        return userEntity;
+    }
+
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
     }
 }
