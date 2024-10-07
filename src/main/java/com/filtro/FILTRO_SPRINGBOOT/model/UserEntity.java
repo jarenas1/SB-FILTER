@@ -33,6 +33,8 @@ public class UserEntity {
     @Transient //avoid the creation of this column in the DB
     private boolean admin;
 
+    //------------------------RELATION-------------------------------------------------
+
     @JsonIgnoreProperties({"users"}) //Avoid infity cicles in the responses
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -42,6 +44,8 @@ public class UserEntity {
             uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "role_id"})}  //Unique columns
     )
     private List<RoleEntity> roles = new ArrayList<>();
+
+    //---------------------------GETTERS AND SETTERS-------------------------------------------------
 
     public boolean isAdmin() {
         return admin;

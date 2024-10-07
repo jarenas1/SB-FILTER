@@ -9,6 +9,8 @@ public class Error {
     private int status;
     private Date date;
 
+    //---------------------------GETTERS AND SETTERS-------------------------------------------------
+
     public Date getDate() {
         return date;
     }

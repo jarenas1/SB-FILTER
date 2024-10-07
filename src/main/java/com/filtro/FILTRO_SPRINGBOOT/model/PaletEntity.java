@@ -28,7 +28,54 @@ public class PaletEntity {
     @Enumerated(EnumType.STRING) // Save the enum like a string
     private PaletStatus paletStatus;
 
+    //AUDIT
+    @Embedded
+    private Audit audit = new Audit();
+
+    //---------------------RELATION----------------------------------------------
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "paletEntity")
     List<LoadEntity> loads = new ArrayList<>();
 
+    //---------------------------GETTERS AND SETTERS-------------------------------------------------
+
+    public @NotNull Long getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(@NotNull Long capacity) {
+        this.capacity = capacity;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public List<LoadEntity> getLoads() {
+        return loads;
+    }
+
+    public void setLoads(List<LoadEntity> loads) {
+        this.loads = loads;
+    }
+
+    public @NotBlank String getLocation() {
+        return location;
+    }
+
+    public void setLocation(@NotBlank String location) {
+        this.location = location;
+    }
+
+    public PaletStatus getPaletStatus() {
+        return paletStatus;
+    }
+
+    public void setPaletStatus(PaletStatus paletStatus) {
+        this.paletStatus = paletStatus;
+    }
 }

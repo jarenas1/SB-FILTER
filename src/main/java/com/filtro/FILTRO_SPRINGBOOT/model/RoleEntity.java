@@ -18,6 +18,8 @@ public class RoleEntity {
     public RoleEntity() {
     }
 
+    //---------------------------GETTERS AND SETTERS-------------------------------------------------
+
     public String getId() {
         return id;
     }

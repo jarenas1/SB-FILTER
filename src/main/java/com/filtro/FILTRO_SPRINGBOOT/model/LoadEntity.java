@@ -25,4 +25,50 @@ public class LoadEntity {
     @ManyToOne
     @JoinColumn(name = "id_palet")
     private PaletEntity paletEntity;
+
+    //AUDIT
+    @Embedded
+    private Audit audit = new Audit();
+
+    //---------------------------GETTERS AND SETTERS-------------------------------------------------
+
+    public @NotNull Long getDimensions() {
+        return dimensions;
+    }
+
+    public void setDimensions(@NotNull Long dimensions) {
+        this.dimensions = dimensions;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public LoadStatus getLoadStatus() {
+        return loadStatus;
+    }
+
+    public void setLoadStatus(LoadStatus loadStatus) {
+        this.loadStatus = loadStatus;
+    }
+
+    public PaletEntity getPaletEntity() {
+        return paletEntity;
+    }
+
+    public void setPaletEntity(PaletEntity paletEntity) {
+        this.paletEntity = paletEntity;
+    }
+
+    public @NotNull Long getWeight() {
+        return weight;
+    }
+
+    public void setWeight(@NotNull Long weight) {
+        this.weight = weight;
+    }
 }

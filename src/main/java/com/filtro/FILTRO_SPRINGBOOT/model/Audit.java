@@ -8,13 +8,15 @@ import jakarta.persistence.PreUpdate;
 import java.time.LocalDateTime;
 
 @Embeddable
-public class AuditEntity {
+public class Audit {
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
+
+    //---------------------------GETTERS AND SETTERS-------------------------------------------------
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
