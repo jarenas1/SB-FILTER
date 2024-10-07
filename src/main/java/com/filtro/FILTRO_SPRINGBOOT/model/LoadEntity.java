@@ -22,6 +22,7 @@ public class LoadEntity {
 
     @NotNull
     private Long dimensions;
+
     @ManyToOne
     @JoinColumn(name = "id_palet")
     private PaletEntity paletEntity;
