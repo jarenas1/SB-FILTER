@@ -3,6 +3,7 @@ package com.filtro.FILTRO_SPRINGBOOT.service.impl;
 import com.filtro.FILTRO_SPRINGBOOT.model.PaletEntity;
 import com.filtro.FILTRO_SPRINGBOOT.repository.PaletRepository;
 import com.filtro.FILTRO_SPRINGBOOT.service.PaletService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -31,7 +32,8 @@ public class PaletImplementation implements PaletService {
     @Override
     public PaletEntity update(PaletEntity paletEntity) {
         Optional<PaletEntity> optionalPaletEntity = paletRepository.findById(paletEntity.getId());
-        if (optionalPaletEntity.isPresent()){
+
+        if (optionalPaletEntity.isPresent()) {
             PaletEntity toUpdatePalet = optionalPaletEntity.get();
 
             toUpdatePalet.setCapacity(paletEntity.getCapacity());
@@ -40,18 +42,19 @@ public class PaletImplementation implements PaletService {
             toUpdatePalet.setLocation(paletEntity.getLocation());
 
             return paletRepository.save(toUpdatePalet);
+        } else {
+            throw new EntityNotFoundException("Palet not found with ID: " + paletEntity.getId());
         }
-        return null ;
     }
 
     @Override
     public Optional<PaletEntity> delete(String id) {
 
-        Optional<PaletEntity> optionalPaletEntity = paletRepository.findById(id);
+        PaletEntity paletEntity = paletRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Palet not found with ID: " + id));
 
-        optionalPaletEntity.ifPresent(paletEntity -> {
-            paletRepository.delete(paletEntity);
-        });
-        return optionalPaletEntity;
+        paletRepository.delete(paletEntity);
+
+        return Optional.of(paletEntity); // Devuelve la entidad eliminada
     }
 }

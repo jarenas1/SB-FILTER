@@ -1,7 +1,9 @@
 package com.filtro.FILTRO_SPRINGBOOT.service;
 
 import com.filtro.FILTRO_SPRINGBOOT.model.LoadEntity;
+import com.filtro.FILTRO_SPRINGBOOT.model.PaletEntity;
 import com.filtro.FILTRO_SPRINGBOOT.model.UserEntity;
+import com.filtro.FILTRO_SPRINGBOOT.tools.enums.LoadStatus;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,12 +11,18 @@ import java.util.Optional;
 public interface LoadService {
     List<LoadEntity> findAll();
 
-    Optional<LoadEntity> findById();
+    Optional<LoadEntity> findById(String id);
 
     LoadEntity save (LoadEntity loadEntity);
 
-    Optional<LoadEntity> findByUserEntity(UserEntity userEntity);
+    LoadEntity update (LoadEntity loadEntity);
 
-    Optional<LoadEntity> findByPaletEntity(UserEntity userEntity);
+    LoadEntity patchDamage(String id);
+
+    LoadEntity patchStatus(String id, LoadStatus loadStatus);
+
+    List<LoadEntity> findByUserEntity(UserEntity userEntity);
+
+    List<LoadEntity> findByPaletEntity(PaletEntity paletEntity);
 }
 

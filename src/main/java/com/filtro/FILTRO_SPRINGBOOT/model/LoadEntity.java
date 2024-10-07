@@ -80,4 +80,28 @@ public class LoadEntity {
     public void setWeight(@NotNull Long weight) {
         this.weight = weight;
     }
+
+    public Audit getAudit() {
+        return audit;
+    }
+
+    public void setAudit(Audit audit) {
+        this.audit = audit;
+    }
+
+    public Boolean getDamage() {
+        return damage;
+    }
+
+    public void setDamage(Boolean damage) {
+        this.damage = damage;
+    }
+
+    public UserEntity getUserEntity() {
+        return userEntity;
+    }
+
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
+    }
 }
