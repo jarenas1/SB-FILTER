@@ -41,8 +41,9 @@ public class AuditEntity {
     }
 
     @PreUpdate
-    public void preUpdate(){
+    public void preUpdate() {
         System.out.println("preUpdate");
-        this.updatedAt = LocalDateTime.now(); 
+        this.updatedAt = LocalDateTime.now();
 
+    }
 }
