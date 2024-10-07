@@ -23,9 +23,17 @@ public class LoadEntity {
     @NotNull
     private Long dimensions;
 
+    private Boolean damage = false;
+
+    //relation-----
     @ManyToOne
     @JoinColumn(name = "id_palet")
     private PaletEntity paletEntity;
+
+    //relation-----
+    @ManyToOne
+    @JoinColumn(name = "id_user")
+    private UserEntity userEntity;
 
     //AUDIT
     @Embedded
