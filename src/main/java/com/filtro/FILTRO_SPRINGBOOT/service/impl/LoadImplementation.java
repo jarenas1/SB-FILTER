@@ -9,10 +9,13 @@ import com.filtro.FILTRO_SPRINGBOOT.service.LoadService;
 import com.filtro.FILTRO_SPRINGBOOT.tools.enums.LoadStatus;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
+@Service
 public class LoadImplementation implements LoadService {
 
     @Autowired
@@ -34,7 +37,7 @@ public class LoadImplementation implements LoadService {
     }
 
     @Override
-    public LoadEntity update(LoadEntity loadEntity) {
+    public Optional<LoadEntity> update(LoadEntity loadEntity) {
         Optional<LoadEntity> optionalLoadEntity = loadRepository.findById(loadEntity.getId());
 
         if (optionalLoadEntity.isPresent()) {
@@ -49,26 +52,25 @@ public class LoadImplementation implements LoadService {
           toUpdateLoad.setUserEntity(loadEntity.getUserEntity());
 
 
-            return loadRepository.save(toUpdateLoad);
-        } else {
-            throw new EntityNotFoundException("Load not found with ID: " + loadEntity.getId());
+            return Optional.of(loadRepository.save(toUpdateLoad));
         }
+        return optionalLoadEntity;
     }
 
     @Override
-    public LoadEntity patchDamage(String id) {
+    public LoadEntity patchDamage(String id, boolean newStatus) {
         LoadEntity loadEntity = loadRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("load not found with ID: " + id));
         //patch
-        loadEntity.setDamage(!loadEntity.getDamage()); //if true -> false , if false -> true
-        loadRepository.save(loadEntity);
-        return loadEntity;
+        loadEntity.setDamage(newStatus);
+
+        return loadRepository.save(loadEntity);
     }
 
     @Override
-    public LoadEntity patchStatus(String id, LoadStatus loadStatus) {
+    public LoadEntity patchStatus(String id,  LoadStatus newStatus) {
         LoadEntity loadEntity = loadRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("load not found with ID: " + id));
 
-        loadEntity.setLoadStatus(loadStatus);
+        loadEntity.setLoadStatus(newStatus);
         return loadRepository.save(loadEntity);
     }
 

@@ -22,8 +22,8 @@ public class UserImplementation implements UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
 
     @Override
     @Transactional
@@ -43,7 +43,12 @@ public class UserImplementation implements UserService {
         //setUserRoles
         userEntity.setRoles(roles);
         //encode the password
-        userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
+//        userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
         return userRepository.save(userEntity);
+    }
+
+    @Override
+    public Optional<UserEntity> findById(String id) {
+        return userRepository.findById(id);
     }
 }

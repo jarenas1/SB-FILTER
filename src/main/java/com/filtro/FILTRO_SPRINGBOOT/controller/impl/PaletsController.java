@@ -49,7 +49,7 @@ public class PaletsController {
         if (result.hasFieldErrors()) {
             return validation(result);
         }
-        Optional<PaletEntity> paletEntityOptional = Optional.ofNullable(paletService.update(paletEntity));
+        Optional<PaletEntity> paletEntityOptional = paletService.update(paletEntity);
         if (paletEntityOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.CREATED).body(paletEntityOptional.get());
         }
