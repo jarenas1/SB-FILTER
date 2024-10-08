@@ -50,8 +50,10 @@ public class SpringSecurityConfig {
                                 "/swagger-ui/**",       // Swagger UI
                                 "/swagger-ui.html",     // Página principal de Swagger UI
                                 "/swagger-resources/**",
-                                "/webjars/**")
-                        .permitAll()
+                                "/webjars/**").permitAll()
+                        .requestMatchers("/api/loads").permitAll()
+                        .requestMatchers("/api/pallets").permitAll()
+                        .requestMatchers("/api/auth").permitAll()
                         .anyRequest().authenticated()) //resto de rutas privadas
                 .addFilter(new JwtAuthenticationFilter(authenticationManager()))
                 .addFilter(new JwtValidationFilter(authenticationManager()))

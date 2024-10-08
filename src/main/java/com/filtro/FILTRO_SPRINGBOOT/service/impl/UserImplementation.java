@@ -22,8 +22,8 @@ public class UserImplementation implements UserService {
     @Autowired
     private UserRepository userRepository;
 
-//    @Autowired
-//    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     @Transactional
@@ -36,14 +36,14 @@ public class UserImplementation implements UserService {
         optionalRoleEntityUser.ifPresent(role->roles.add(role));
         //check if user is admin
         if(userEntity.isAdmin()){
-            Optional<RoleEntity> optionalRoleEntityAdmin = roleRepository.findByName("ROLE:ADMIN");
+            Optional<RoleEntity> optionalRoleEntityAdmin = roleRepository.findByName("ROLE_ADMIN");
 
             optionalRoleEntityAdmin.ifPresent(role->roles.add(role));
         }
         //setUserRoles
         userEntity.setRoles(roles);
         //encode the password
-//        userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
+        userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
         return userRepository.save(userEntity);
     }
 
