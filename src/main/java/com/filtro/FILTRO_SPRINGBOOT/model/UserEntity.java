@@ -33,6 +33,8 @@ public class UserEntity {
     @Transient //avoid the creation of this column in the DB
     private boolean admin;
 
+    private boolean enabled;
+
     //------------------------RELATION-------------------------------------------------
 
     @JsonIgnoreProperties({"users"}) //Avoid infity cicles in the responses
@@ -50,6 +52,11 @@ public class UserEntity {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "userEntity")
     List<LoadEntity> loads = new ArrayList<>();
     //---------------------------GETTERS AND SETTERS-------------------------------------------------
+
+    @PrePersist //SET enable in true
+    public void prePersist(){
+        this.enabled = true;
+    }
 
     public boolean isAdmin() {
         return admin;
@@ -69,6 +76,22 @@ public class UserEntity {
 
     public String getId() {
         return id;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public List<LoadEntity> getLoads() {
+        return loads;
+    }
+
+    public void setLoads(List<LoadEntity> loads) {
+        this.loads = loads;
     }
 
     public void setId(String id) {
