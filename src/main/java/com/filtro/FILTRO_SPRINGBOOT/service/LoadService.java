@@ -6,6 +6,7 @@ import com.filtro.FILTRO_SPRINGBOOT.model.UserEntity;
 import com.filtro.FILTRO_SPRINGBOOT.tools.enums.LoadStatus;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface LoadService {
@@ -15,11 +16,11 @@ public interface LoadService {
 
     LoadEntity save (LoadEntity loadEntity);
 
-    LoadEntity update (LoadEntity loadEntity);
+    Optional<LoadEntity> update (LoadEntity loadEntity);
 
-    LoadEntity patchDamage(String id);
+    LoadEntity patchDamage(String id, boolean status);
 
-    LoadEntity patchStatus(String id, LoadStatus loadStatus);
+    LoadEntity patchStatus(String id, LoadStatus newStatus);
 
     List<LoadEntity> findByUserEntity(UserEntity userEntity);
 

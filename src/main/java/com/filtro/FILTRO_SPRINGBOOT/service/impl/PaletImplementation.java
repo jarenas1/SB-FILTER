@@ -5,10 +5,12 @@ import com.filtro.FILTRO_SPRINGBOOT.repository.PaletRepository;
 import com.filtro.FILTRO_SPRINGBOOT.service.PaletService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class PaletImplementation implements PaletService {
 
     @Autowired
@@ -30,7 +32,7 @@ public class PaletImplementation implements PaletService {
     }
 
     @Override
-    public PaletEntity update(PaletEntity paletEntity) {
+    public Optional<PaletEntity> update(PaletEntity paletEntity) {
         Optional<PaletEntity> optionalPaletEntity = paletRepository.findById(paletEntity.getId());
 
         if (optionalPaletEntity.isPresent()) {
@@ -41,10 +43,9 @@ public class PaletImplementation implements PaletService {
             toUpdatePalet.setLoads(paletEntity.getLoads());
             toUpdatePalet.setLocation(paletEntity.getLocation());
 
-            return paletRepository.save(toUpdatePalet);
-        } else {
-            throw new EntityNotFoundException("Palet not found with ID: " + paletEntity.getId());
+            return Optional.of(paletRepository.save(toUpdatePalet));
         }
+        return optionalPaletEntity;
     }
 
     @Override

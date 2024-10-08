@@ -13,7 +13,7 @@ public interface PaletService {
 
     PaletEntity save(PaletEntity paletEntity);
 
-    PaletEntity update(PaletEntity paletEntity);
+    Optional<PaletEntity> update(PaletEntity paletEntity);
 
     Optional<PaletEntity> delete(String id);
 
