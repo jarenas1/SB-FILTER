@@ -1,6 +1,7 @@
 package com.filtro.FILTRO_SPRINGBOOT.controller.impl;
 
 import com.filtro.FILTRO_SPRINGBOOT.model.UserEntity;
+import com.filtro.FILTRO_SPRINGBOOT.service.UserService;
 import com.filtro.FILTRO_SPRINGBOOT.service.impl.UserImplementation;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ import java.util.Map;
 public class UserController {
 
     @Autowired
-    private UserImplementation userService;
+    private UserService userService;
 
     @PostMapping
     public ResponseEntity<?> create(@Valid @RequestBody UserEntity userEntity, BindingResult result){
@@ -51,5 +52,4 @@ public class UserController {
         });
         return ResponseEntity.badRequest().body(errors);
     }
-
 }
