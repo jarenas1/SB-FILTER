@@ -6,6 +6,7 @@ import com.filtro.FILTRO_SPRINGBOOT.model.UserEntity;
 import com.filtro.FILTRO_SPRINGBOOT.service.LoadService;
 import com.filtro.FILTRO_SPRINGBOOT.service.PaletService;
 import com.filtro.FILTRO_SPRINGBOOT.service.UserService;
+import com.filtro.FILTRO_SPRINGBOOT.service.impl.MailSenderImplementation;
 import com.filtro.FILTRO_SPRINGBOOT.tools.enums.LoadStatus;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
@@ -32,6 +33,9 @@ public class LoadsController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private MailSenderImplementation mailSenderImplementation;
 
     @GetMapping
     public List<LoadEntity> finAll(){
@@ -91,9 +95,17 @@ public class LoadsController {
         if (newStatus == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid or missing 'damage' value");
         }
+        //traemos los admins pa enviar el correo
+        List<UserEntity> users = userService.findAll();
 
         try {
             LoadEntity updatedLoad = loadService.patchDamage(id, newStatus);
+            //SEND EMAIL TO ADMINS
+            for(UserEntity user: users){
+                if (user.isAdmin()){
+                    mailSenderImplementation.email(user.getEmail(),user.getUsername(),"SE HA REGISTRADO UN NUEVO DAÑO EN UNA CARGA");
+                }
+            }
             return ResponseEntity.ok(updatedLoad);
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());

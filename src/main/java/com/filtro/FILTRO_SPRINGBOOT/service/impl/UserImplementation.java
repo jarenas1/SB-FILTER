@@ -51,4 +51,9 @@ public class UserImplementation implements UserService {
     public Optional<UserEntity> findById(String id) {
         return userRepository.findById(id);
     }
+
+    @Override
+    public List<UserEntity> findAll() {
+        return userRepository.findAll();
+    }
 }
