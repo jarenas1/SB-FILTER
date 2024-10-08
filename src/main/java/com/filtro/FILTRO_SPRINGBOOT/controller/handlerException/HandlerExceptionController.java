@@ -62,7 +62,7 @@ public class HandlerExceptionController {
         error.setDate(new Date());
         error.setError("Error, Usuario o rol no existen");
         error.setMessage(ex.getMessage());
-        error.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value()); 
+        error.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
 
         return ResponseEntity.internalServerError().body(error);
     }

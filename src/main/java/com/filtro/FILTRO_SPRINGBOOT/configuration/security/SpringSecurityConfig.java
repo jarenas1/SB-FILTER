@@ -51,9 +51,15 @@ public class SpringSecurityConfig {
                                 "/swagger-ui.html",     // Página principal de Swagger UI
                                 "/swagger-resources/**",
                                 "/webjars/**").permitAll()
-                        .requestMatchers("/api/loads").permitAll()
-                        .requestMatchers("/api/pallets").permitAll()
-                        .requestMatchers("/api/auth").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/api/loads").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET,"/api/loads/{id}").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST,"/api/loads/{id}").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT,"/api/loads/{id}").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PATCH,"/api/loads/{id}/status").hasAnyRole("ADMIN","USER")
+                        .requestMatchers(HttpMethod.PATCH,"/api/loads/{id}/damage").hasAnyRole("ADMIN","USER")
+                        .requestMatchers(HttpMethod.GET,"/api/loads/carriers/{id}").hasRole("USER")
+                        .requestMatchers(HttpMethod.GET,"/api/loads/pallet/{id}").hasAnyRole("USER", "ADMIN")
+
                         .anyRequest().authenticated()) //resto de rutas privadas
                 .addFilter(new JwtAuthenticationFilter(authenticationManager()))
                 .addFilter(new JwtValidationFilter(authenticationManager()))
